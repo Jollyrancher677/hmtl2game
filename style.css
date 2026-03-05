@@ -1,0 +1,210 @@
+/* General Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --accent-color: #ff6b6b; 
+    --bg-light: #fafafa;
+}
+
+body {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background-color: var(--bg-light);
+    transition: background-color 0.5s ease;
+    min-height: 100vh;
+}
+
+/* --- INTERACTIVE BACKGROUND --- */
+.bg-visual {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1; 
+    
+    /* Default values so it doesn't disappear if mouse isn't moving */
+    --mouse-x: 50%;
+    --mouse-y: 50%;
+
+    /* 1. The first gradient follows your mouse (--mouse-x, --mouse-y)
+       2. The other two drift slowly using the 'moveBackground' animation
+    */
+    background: 
+        radial-gradient(circle at var(--mouse-x) var(--mouse-y), var(--accent-color), transparent 35%),
+        radial-gradient(circle at 80% 20%, #7209b7, transparent 30%),
+        radial-gradient(circle at 20% 80%, #4361ee, transparent 30%);
+    
+    opacity: 0.18; /* Slightly higher opacity for better visibility */
+    filter: blur(80px);
+    
+    /* This makes the mouse-following glow feel "heavy" and smooth */
+    transition: background 0.15s ease-out; 
+    animation: moveBackground 15s infinite alternate ease-in-out;
+}
+
+@keyframes moveBackground {
+    0% { transform: scale(1); }
+    100% { transform: scale(1.1) rotate(2deg); }
+}
+
+/* Added a hover effect for the main image to match the interactivity */
+.hero-img {
+    width: 100%;
+    max-width: 1000px;
+    border-radius: 15px;
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    cursor: crosshair;
+}
+
+.hero-img:hover {
+    transform: scale(1.02) rotate(-1deg);
+    box-shadow: 0 20px 50px rgba(0,0,0,0.15);
+}
+/* Navigation */
+nav {
+    background: rgba(255, 255, 255, 0.8); /* Semi-transparent for that "glass" look */
+    backdrop-filter: blur(10px);
+    padding: 1rem 5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--accent-color); 
+    transition: color 0.5s;
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+    gap: 20px;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: #555;
+    font-weight: 500;
+    transition: 0.3s;
+}
+
+nav ul li a:hover {
+    color: var(--accent-color);
+}
+
+/* Sections */
+section {
+    width: 90%;
+    max-width: 1100px;
+    margin: 40px auto;
+    padding: 20px;
+    text-align: center;
+    position: relative;
+    z-index: 10;
+}
+
+h1 {
+    font-size: clamp(2rem, 5vw, 3rem);
+    margin-bottom: 20px;
+    color: #222;
+}
+
+h1::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 4px;
+    background: var(--accent-color);
+    margin: 10px auto;
+    border-radius: 2px;
+}
+
+/* Image Grids */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+    margin-top: 30px;
+}
+
+.card {
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+    transition: all 0.3s ease;
+    border-bottom: 0px solid var(--accent-color);
+}
+
+.card:hover {
+    transform: translateY(-10px);
+    border-bottom: 5px solid var(--accent-color);
+}
+
+.card img {
+    width: 100%;
+    aspect-ratio: 4/3;
+    object-fit: cover;
+    display: block;
+}
+
+/* Form Styling */
+form {
+    display: flex;
+    flex-direction: column;
+    max-width: 500px;
+    margin: 0 auto;
+    gap: 15px;
+}
+
+input, textarea {
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.9);
+}
+
+input:focus, textarea:focus {
+    outline: none;
+    border-color: var(--accent-color);
+}
+
+button {
+    padding: 15px;
+    background: var(--accent-color);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+/* Responsiveness */
+@media (max-width: 600px) {
+    nav { justify-content: center; flex-direction: column; gap: 15px; }
+}
+
+/* Expandable Image Logic */
+.expandable-image.expanded {
+    position: fixed;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%) scale(1.1);
+    height: 80vh;
+    z-index: 9999;
+    box-shadow: 0 0 50px rgba(0,0,0,0.5);
+}

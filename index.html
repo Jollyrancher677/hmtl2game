@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="style.css">
+    <title>My Portfolio | Home</title>
+</head>
+<body  style="--accent-color: #4361ee;"> <div class="bg-visual"></div> <nav>
+
+   
+        <div class="logo">Home</div>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="photography.html">Photography</a></li>
+            <li><a href="design.html">Design</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+    </nav>
+    <section>
+        <h1>Welcome to <span id="easter-egg" onclick="location.href='game.html'" style="cursor: pointer;">Elijah's</span> Website</h1>
+        
+        <img src="Elijahc.png" class="hero-img" alt="Banner">
+        
+        <p style="margin-top:20px; position: relative; z-index: 2;">
+            I am a Photographer and Designer. Click on the words above to see my work.
+        </p>
+    </section>
+    <script>
+    const bg = document.querySelector('.bg-visual');
+    
+    window.addEventListener('mousemove', (e) => {
+        // Calculate mouse position as a percentage of the window
+        const x = (e.clientX / window.innerWidth) * 100;
+        const y = (e.clientY / window.innerHeight) * 100;
+        
+        // Update the CSS variables on the background div
+        bg.style.setProperty('--mouse-x', x + '%');
+        bg.style.setProperty('--mouse-y', y + '%');
+    });
+</script>
+</body>
+</html>
